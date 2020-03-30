@@ -161,29 +161,29 @@ export default function Pricing() {
             color='inherit'
             noWrap
             className={classes.toolbarTitle}>
-            Company name
+            Digital Media
           </Typography>
           <nav>
             <Link
               variant='button'
               color='textPrimary'
-              href='#'
+              href='/'
               className={classes.link}>
-              Features
+              Blog
             </Link>
             <Link
               variant='button'
               color='textPrimary'
               href='#'
               className={classes.link}>
-              Enterprise
+              About Me
             </Link>
             <Link
               variant='button'
               color='textPrimary'
-              href='#'
+              href='/register'
               className={classes.link}>
-              Support
+              Register
             </Link>
           </nav>
           <Button

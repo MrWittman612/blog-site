@@ -7,6 +7,7 @@ import Pricing from './components/pricing/Pricing';
 import Login from './components/login/Login';
 import Register from './components/register/Register';
 import Dashboard from './components/dashboard/Dashboard';
+import Blog from './components/blog/Blog';
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
           </Route>
           <Route path='/dashboard'>
             <Dashboard />
+          </Route>
+          <Route path='/blog'>
+            <Blog />
           </Route>
         </Switch>
       </div>
