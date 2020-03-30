@@ -1,0 +1,25 @@
+{
+  "name": "blog",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./bin/www",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon node .",
+    "client": "npm run start --prefix client",
+    "start:app:dev": "concurrently \"npm run dev\" \"npm run client\""
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.1.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "mongoose": "^5.9.6",
+    "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2",
+    "prettier": "2.0.2"
+  }
+}
