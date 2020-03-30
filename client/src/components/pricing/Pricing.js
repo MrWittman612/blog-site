@@ -17,9 +17,9 @@ import Box from '@material-ui/core/Box';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant='body2' color='textSecondary' align='center'>
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color='inherit' href='https://material-ui.com/'>
         Your Website
       </Link>{' '}
       {new Date().getFullYear()}
@@ -53,7 +53,9 @@ const useStyles = makeStyles((theme) => ({
   },
   cardHeader: {
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[700],
+      theme.palette.type === 'light'
+        ? theme.palette.grey[200]
+        : theme.palette.grey[700],
   },
   cardPricing: {
     display: 'flex',
@@ -77,7 +79,12 @@ const tiers = [
   {
     title: 'Free',
     price: '0',
-    description: ['10 users included', '2 GB of storage', 'Help center access', 'Email support'],
+    description: [
+      '10 users included',
+      '2 GB of storage',
+      'Help center access',
+      'Email support',
+    ],
     buttonText: 'Sign up for free',
     buttonVariant: 'outlined',
   },
@@ -114,11 +121,22 @@ const footers = [
   },
   {
     title: 'Features',
-    description: ['Cool stuff', 'Random feature', 'Team feature', 'Developer stuff', 'Another one'],
+    description: [
+      'Cool stuff',
+      'Random feature',
+      'Team feature',
+      'Developer stuff',
+      'Another one',
+    ],
   },
   {
     title: 'Resources',
-    description: ['Resource', 'Resource name', 'Another resource', 'Final resource'],
+    description: [
+      'Resource',
+      'Resource name',
+      'Another resource',
+      'Final resource',
+    ],
   },
   {
     title: 'Legal',
@@ -132,43 +150,82 @@ export default function Pricing() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
+      <AppBar
+        position='static'
+        color='default'
+        elevation={0}
+        className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
-          <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+          <Typography
+            variant='h6'
+            color='inherit'
+            noWrap
+            className={classes.toolbarTitle}>
             Company name
           </Typography>
           <nav>
-            <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+            <Link
+              variant='button'
+              color='textPrimary'
+              href='#'
+              className={classes.link}>
               Features
             </Link>
-            <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+            <Link
+              variant='button'
+              color='textPrimary'
+              href='#'
+              className={classes.link}>
               Enterprise
             </Link>
-            <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+            <Link
+              variant='button'
+              color='textPrimary'
+              href='#'
+              className={classes.link}>
               Support
             </Link>
           </nav>
-          <Button href="#" color="primary" variant="outlined" className={classes.link}>
+          <Button
+            href='/login'
+            color='primary'
+            variant='outlined'
+            className={classes.link}>
             Login
           </Button>
         </Toolbar>
       </AppBar>
       {/* Hero unit */}
-      <Container maxWidth="sm" component="main" className={classes.heroContent}>
-        <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+      <Container maxWidth='sm' component='main' className={classes.heroContent}>
+        <Typography
+          component='h1'
+          variant='h2'
+          align='center'
+          color='textPrimary'
+          gutterBottom>
           Pricing
         </Typography>
-        <Typography variant="h5" align="center" color="textSecondary" component="p">
-          Quickly build an effective pricing table for your potential customers with this layout.
-          It&apos;s built with default Material-UI components with little customization.
+        <Typography
+          variant='h5'
+          align='center'
+          color='textSecondary'
+          component='p'>
+          Quickly build an effective pricing table for your potential customers
+          with this layout. It&apos;s built with default Material-UI components
+          with little customization.
         </Typography>
       </Container>
       {/* End hero unit */}
-      <Container maxWidth="md" component="main">
-        <Grid container spacing={5} alignItems="flex-end">
+      <Container maxWidth='md' component='main'>
+        <Grid container spacing={5} alignItems='flex-end'>
           {tiers.map((tier) => (
             // Enterprise card is full width at sm breakpoint
-            <Grid item key={tier.title} xs={12} sm={tier.title === 'Enterprise' ? 12 : 6} md={4}>
+            <Grid
+              item
+              key={tier.title}
+              xs={12}
+              sm={tier.title === 'Enterprise' ? 12 : 6}
+              md={4}>
               <Card>
                 <CardHeader
                   title={tier.title}
@@ -180,23 +237,30 @@ export default function Pricing() {
                 />
                 <CardContent>
                   <div className={classes.cardPricing}>
-                    <Typography component="h2" variant="h3" color="textPrimary">
+                    <Typography component='h2' variant='h3' color='textPrimary'>
                       ${tier.price}
                     </Typography>
-                    <Typography variant="h6" color="textSecondary">
+                    <Typography variant='h6' color='textSecondary'>
                       /mo
                     </Typography>
                   </div>
                   <ul>
                     {tier.description.map((line) => (
-                      <Typography component="li" variant="subtitle1" align="center" key={line}>
+                      <Typography
+                        component='li'
+                        variant='subtitle1'
+                        align='center'
+                        key={line}>
                         {line}
                       </Typography>
                     ))}
                   </ul>
                 </CardContent>
                 <CardActions>
-                  <Button fullWidth variant={tier.buttonVariant} color="primary">
+                  <Button
+                    fullWidth
+                    variant={tier.buttonVariant}
+                    color='primary'>
                     {tier.buttonText}
                   </Button>
                 </CardActions>
@@ -206,17 +270,17 @@ export default function Pricing() {
         </Grid>
       </Container>
       {/* Footer */}
-      <Container maxWidth="md" component="footer" className={classes.footer}>
-        <Grid container spacing={4} justify="space-evenly">
+      <Container maxWidth='md' component='footer' className={classes.footer}>
+        <Grid container spacing={4} justify='space-evenly'>
           {footers.map((footer) => (
             <Grid item xs={6} sm={3} key={footer.title}>
-              <Typography variant="h6" color="textPrimary" gutterBottom>
+              <Typography variant='h6' color='textPrimary' gutterBottom>
                 {footer.title}
               </Typography>
               <ul>
                 {footer.description.map((item) => (
                   <li key={item}>
-                    <Link href="#" variant="subtitle1" color="textSecondary">
+                    <Link href='#' variant='subtitle1' color='textSecondary'>
                       {item}
                     </Link>
                   </li>
