@@ -12,7 +12,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 
 export const mainListItems = (
   <div>
-    <ListItem button component='a' href='/blog'>
+    <ListItem button component='a' href='/'>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>

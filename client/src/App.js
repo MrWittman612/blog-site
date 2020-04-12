@@ -15,6 +15,9 @@ function App() {
       <div>
         <Switch>
           <Route exact path='/'>
+            <Blog />
+          </Route>
+          <Route exact path='/album'>
             <Album />
           </Route>
           <Route path='/pricing'>
@@ -28,9 +31,6 @@ function App() {
           </Route>
           <Route path='/dashboard'>
             <Dashboard />
-          </Route>
-          <Route path='/blog'>
-            <Blog />
           </Route>
         </Switch>
       </div>

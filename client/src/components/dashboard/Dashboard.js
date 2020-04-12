@@ -18,16 +18,16 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
-import Chart from './Chart';
-import Deposits from './Deposits';
-import Orders from './Orders';
+import { mainListItems, secondaryListItems } from './utils/listItems';
+import Chart from './chart/Chart';
+import Deposits from './deposits/Deposits';
+import Orders from './orders/Orders';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant='body2' color='textSecondary' align='center'>
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color='inherit' href='https://material-ui.com/'>
         Your Website
       </Link>{' '}
       {new Date().getFullYear()}
@@ -131,34 +131,42 @@ export default function Dashboard() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+      <AppBar
+        position='absolute'
+        className={clsx(classes.appBar, open && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
           <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
+            edge='start'
+            color='inherit'
+            aria-label='open drawer'
             onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-          >
+            className={clsx(
+              classes.menuButton,
+              open && classes.menuButtonHidden
+            )}>
             <MenuIcon />
           </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+          <Typography
+            component='h1'
+            variant='h6'
+            color='inherit'
+            noWrap
+            className={classes.title}>
             Dashboard
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
+          <IconButton color='inherit'>
+            <Badge badgeContent={4} color='secondary'>
               <NotificationsIcon />
             </Badge>
           </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
-        variant="permanent"
+        variant='permanent'
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}
-        open={open}
-      >
+        open={open}>
         <div className={classes.toolbarIcon}>
           <IconButton onClick={handleDrawerClose}>
             <ChevronLeftIcon />
@@ -171,7 +179,7 @@ export default function Dashboard() {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
+        <Container maxWidth='lg' className={classes.container}>
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={8} lg={9}>
