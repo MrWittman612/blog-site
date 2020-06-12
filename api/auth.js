@@ -84,3 +84,31 @@ const register = async (req, res) => {
 };
 
 exports.register = register;
+
+const protectedRoute = async (req, res, next) => {
+  const bearer = req.headers.authorization;
+  if (!bearer || !bearer.startWith('Bearer ')) {
+    return res.status(401).end();
+  }
+  const token = bearer.split('Bearer ')[1].trim();
+  if (!token) {
+    return res.status(401).end();
+  }
+  let payload;
+  try {
+    payload = await verifyToken(token);
+  } catch (error) {
+    return res.status(401).end();
+  }
+  const user = await User.findById(payload.id)
+    .select('-password')
+    .lean()
+    .exec();
+  if (!user) {
+    return res.status(401).end();
+  }
+  req.user = user;
+  return next();
+};
+
+exports.protectedRoute = protectedRoute;
