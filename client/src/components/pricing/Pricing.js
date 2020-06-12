@@ -1,32 +1,22 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
+import {
+  AppBar,
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Container,
+  CssBaseline,
+  Grid,
+  makeStyles,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
 import StarIcon from '@material-ui/icons/StarBorder';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
-
-function Copyright() {
-  return (
-    <Typography variant='body2' color='textSecondary' align='center'>
-      {'Copyright © '}
-      <Link color='inherit' href='https://material-ui.com/'>
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Copyright } from '../../utils/Copyright';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -44,9 +34,11 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbarTitle: {
     flexGrow: 1,
+    textDecoration: 'none',
   },
   link: {
     margin: theme.spacing(1, 1.5),
+    textDecoration: 'none',
   },
   heroContent: {
     padding: theme.spacing(8, 0, 6),
@@ -151,12 +143,14 @@ export default function Pricing() {
     <React.Fragment>
       <CssBaseline />
       <AppBar
-        position='static'
+        position='sticky'
         color='default'
         elevation={0}
         className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <Typography
+            component={Link}
+            to={'/'}
             variant='h6'
             color='inherit'
             noWrap
@@ -167,27 +161,28 @@ export default function Pricing() {
             <Link
               variant='button'
               color='textPrimary'
-              href='/'
+              to={'/news'}
               className={classes.link}>
-              Blog
+              News Feed
             </Link>
             <Link
               variant='button'
               color='textPrimary'
-              href='#'
+              to={'/dashboard'}
               className={classes.link}>
               About Me
             </Link>
             <Link
               variant='button'
               color='textPrimary'
-              href='/register'
+              to={'/register'}
               className={classes.link}>
               Register
             </Link>
           </nav>
           <Button
-            href='/login'
+            component={Link}
+            to={'/login'}
             color='primary'
             variant='outlined'
             className={classes.link}>
