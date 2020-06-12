@@ -1,6 +1,6 @@
-// http://localhost:3100
+// http://localhost:3210
 
-@baseURL = http://localhost:3100
+@baseURL = http://localhost:3210
 @token = 
 
 ###
@@ -8,3 +8,40 @@
 # @name getMe
 
 GET {{baseURL}}
+
+###
+
+# @name Register
+
+POST {{baseURL}}/api/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "name":"joe",
+  "email":"j@j.com",
+  "password":"password"
+}
+
+###
+
+
+
+###
+
+# @name bingNewsApiTrendingTopics
+
+GET {{baseURL}}/api/trendingtopics HTTP/1.1
+# Content-Type: application/json
+
+
+###
+
+# @name bingNewsApiNewInCategiry
+
+GET {{baseURL}}/api/news HTTP/1.1
+
+###
+
+# @name bingNewsApiSearch
+
+GET {{baseURL}}/api/topstory HTTP/1.1

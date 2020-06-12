@@ -5,8 +5,10 @@ var logger = require('morgan');
 
 var connectMongoDB = require('./utils/connectMongoDB');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var { login, register } = require('./api/auth');
+var usersRouter = require('./api/users/users.router');
+
+var bingNewsApi = require('./api/bingNews/bingNewsApi');
 
 var app = express();
 
@@ -14,11 +16,14 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 connectMongoDB();
 
-app.use('/', indexRouter);
+app.post('/api/login', login);
+
+app.post('/api/register', register);
+
 app.use('/users', usersRouter);
+app.use('/api', bingNewsApi);
 
 module.exports = app;

@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+import {
+  makeStyles,
+  Toolbar,
+  Button,
+  IconButton,
+  Typography,
+  Link,
+} from '@material-ui/core';
+
+import { Search as SearchIcon } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -30,7 +33,7 @@ export default function Header(props) {
   const { sections, title } = props;
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Toolbar className={classes.toolbar}>
         <Button href='/' size='small'>
           Subscribe
@@ -67,7 +70,7 @@ export default function Header(props) {
           </Link>
         ))}
       </Toolbar>
-    </React.Fragment>
+    </Fragment>
   );
 }
 

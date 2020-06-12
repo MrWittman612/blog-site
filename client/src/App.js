@@ -17,14 +17,14 @@ function App() {
           <Route exact path='/'>
             <Blog />
           </Route>
-          <Route exact path='/album'>
+          <Route path='/login'>
+            <Login />
+          </Route>
+          <Route path='/album'>
             <Album />
           </Route>
           <Route path='/pricing'>
             <Pricing />
-          </Route>
-          <Route path='/login'>
-            <Login />
           </Route>
           <Route path='/register'>
             <Register />

@@ -1,19 +1,18 @@
 const mongoose = require('mongoose');
+const db = require('../config/keys').mongoURI;
 
-const uri = 'mongodb://localhost:27017/blog';
-
-module.exports = connectMongoDB => {
+function connectMongoDB() {
   mongoose
-    .connect(uri, {
+    .connect(db, {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
     })
     .then(() => {
       console.log('mongoDB connected');
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
     });
-};
+}
 
-// module.exports = connectMongoDB;
+module.exports = connectMongoDB;

@@ -1,20 +1,20 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import Header from './Header';
-import MainFeaturedPost from './MainFeaturedPost';
-import FeaturedPost from './FeaturedPost';
-import Main from './Main';
-import Sidebar from './Sidebar';
-import Footer from './Footer';
+import { Container, CssBaseline, Grid, makeStyles } from '@material-ui/core';
+import {
+  Facebook as FacebookIcon,
+  GitHub as GitHubIcon,
+  Twitter as TwitterIcon,
+} from '@material-ui/icons';
+import axios from 'axios';
+import React, { Fragment, useEffect, useState } from 'react';
 import post1 from './blog-post.1.md';
 import post2 from './blog-post.2.md';
 import post3 from './blog-post.3.md';
+import FeaturedPost from './FeaturedPost';
+import Footer from './Footer';
+import Header from './Header';
+import Main from './Main';
+import MainFeaturedPost from './MainFeaturedPost';
+import Sidebar from './Sidebar';
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const sections = [
-  { title: 'Technology', url: '#' },
+  { title: 'Technology', url: '/' },
   { title: 'Design', url: '#' },
   { title: 'Culture', url: '#' },
   { title: 'Business', url: '#' },
@@ -35,33 +35,33 @@ const sections = [
   { title: 'Travel', url: '#' },
 ];
 
-const mainFeaturedPost = {
-  title: 'Title of a longer featured blog post',
-  description:
-    "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
-  image: 'https://source.unsplash.com/random',
-  imgText: 'main image description',
-  linkText: 'Continue reading…',
-};
+// const mainFeaturedPost = {
+//   title: 'Title of a longer featured blog post',
+//   description:
+//     "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
+//   image: 'https://source.unsplash.com/random',
+//   imgText: 'main image description',
+//   linkText: 'Continue reading…',
+// };
 
-const featuredPosts = [
-  {
-    title: 'Featured post',
-    date: 'Nov 12',
-    description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://source.unsplash.com/random',
-    imageText: 'Image Text',
-  },
-  {
-    title: 'Post title',
-    date: 'Nov 11',
-    description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://source.unsplash.com/random',
-    imageText: 'Image Text',
-  },
-];
+// const featuredPosts = [
+//   {
+//     title: 'Featured post',
+//     date: 'Nov 12',
+//     description:
+//       'This is a wider card with supporting text below as a natural lead-in to additional content.',
+//     image: 'https://source.unsplash.com/random',
+//     imageText: 'Image Text',
+//   },
+//   {
+//     title: 'Post title',
+//     date: 'Nov 11',
+//     description:
+//       'This is a wider card with supporting text below as a natural lead-in to additional content.',
+//     image: 'https://source.unsplash.com/random',
+//     imageText: 'Image Text',
+//   },
+// ];
 
 const posts = [post1, post2, post3];
 
@@ -91,21 +91,54 @@ const sidebar = {
 
 export default function Blog() {
   const classes = useStyles();
+  const [featuredPosts, setFeaturedPosts] = useState([]);
+  const [mainFeaturedPost, setMainFeaturedPost] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios('/api/trendingtopics');
+      setIsLoading(true);
+      console.log(result.data.value);
+
+      setFeaturedPosts(result.data.value);
+      setIsLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchTopStory = async () => {
+      const result = await axios('/api/topstory');
+      console.log('topstory', result.data.value);
+
+      setMainFeaturedPost(result.data.value);
+    };
+    fetchTopStory();
+  }, []);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <CssBaseline />
-      <Container maxWidth="lg">
-        <Header title="Blog" sections={sections} />
+      <Container maxWidth='lg'>
+        <Header title='Blog' sections={sections} />
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
-          <Grid container spacing={4}>
-            {featuredPosts.map((post) => (
-              <FeaturedPost key={post.title} post={post} />
-            ))}
-          </Grid>
+          {isLoading ? (
+            <div>loading....</div>
+          ) : (
+            <Grid container spacing={4}>
+              {featuredPosts.map((featuredPost) => (
+                <FeaturedPost
+                  key={featuredPost.name}
+                  featuredPost={featuredPost}
+                />
+              ))}
+            </Grid>
+          )}
           <Grid container spacing={5} className={classes.mainGrid}>
-            <Main title="From the firehose" posts={posts} />
+            <Main title='From the firehose' posts={posts} />
             <Sidebar
               title={sidebar.title}
               description={sidebar.description}
@@ -115,7 +148,10 @@ export default function Blog() {
           </Grid>
         </main>
       </Container>
-      <Footer title="Footer" description="Something here to give the footer a purpose!" />
-    </React.Fragment>
+      <Footer
+        title='Footer'
+        description='Something here to give the footer a purpose!'
+      />
+    </Fragment>
   );
 }
