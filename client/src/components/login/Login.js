@@ -21,10 +21,11 @@ import {
   VisibilityOff,
 } from '@material-ui/icons';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
 import { Copyright } from '../../utils/Copyright';
 import axios from 'axios';
+import { saveAuthToken } from '../../utils/auth';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -58,10 +59,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(false);
 
-  console.log(formData);
-  console.log('showPassword::', showPassword);
-  console.log(errors);
-  console.log(error);
+  let history = useHistory();
 
   const updateFormData = (event) => {
     if (errors) setErrors({});
@@ -83,6 +81,8 @@ export default function Login() {
     try {
       const response = await axios.post('/api/login', formData);
       console.log(response);
+      saveAuthToken(response.data.token);
+      history.push('/dashboard');
     } catch (error) {
       if (error) {
         setError(true);
@@ -117,6 +117,7 @@ export default function Login() {
             autoFocus
             required
           />
+
           <TextField
             label='Password'
             id='password'
@@ -149,10 +150,12 @@ export default function Login() {
             fullWidth
             required
           />
+
           <FormControlLabel
             control={<Checkbox value='remember' color='primary' />}
             label='Remember me'
           />
+
           <Button
             type='submit'
             variant='contained'
@@ -162,14 +165,16 @@ export default function Login() {
             fullWidth>
             Login Now
           </Button>
+
           <Grid container>
             <Grid item xs>
-              <Link href='/dashboard' variant='body2'>
+              <Link to={'/dashboard'} variant='body2'>
                 {' Forgot password?'}
               </Link>
             </Grid>
+
             <Grid item>
-              <Link href='/register' variant='body2'>
+              <Link to={'/register'} variant='body2'>
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

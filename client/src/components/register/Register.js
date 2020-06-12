@@ -9,7 +9,6 @@ import {
   Grid,
   IconButton,
   InputAdornment,
-  Link,
   makeStyles,
   TextField,
   Typography,
@@ -21,7 +20,9 @@ import {
 } from '@material-ui/icons';
 import axios from 'axios';
 import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { Copyright } from '../../utils/Copyright';
+import { saveAuthToken } from '../../utils/auth';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -56,11 +57,7 @@ export default function Register() {
   const [errors, setErrors] = useState([]);
   const [error, setError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
-  console.log(formData);
-  console.log('showPassword::', showPassword);
-  console.log(errors);
-  console.log(error);
+  let history = useHistory();
 
   const updateForm = (event) => {
     if (errors) setErrors({});
@@ -92,7 +89,9 @@ export default function Register() {
 
       try {
         const response = await axios.post('/api/register', newUser);
-        console.log('response', response);
+
+        saveAuthToken(response.data.token);
+        history.push('/dashboard');
       } catch (error) {
         console.error(error);
       }
@@ -128,6 +127,7 @@ export default function Register() {
                 fullWidth
               />
             </Grid>
+
             <Grid item xs={12} sm={6}>
               <TextField
                 label='Last Name'
@@ -140,6 +140,7 @@ export default function Register() {
                 fullWidth
               />
             </Grid>
+
             <Grid item xs={12}>
               <TextField
                 label='Email Address'
@@ -153,6 +154,7 @@ export default function Register() {
                 required
               />
             </Grid>
+
             <Grid item xs={12}>
               <TextField
                 label='Password'
@@ -181,6 +183,7 @@ export default function Register() {
                 fullWidth
               />
             </Grid>
+
             <Grid item xs={12}>
               <TextField
                 label='Password2'
@@ -198,13 +201,14 @@ export default function Register() {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value='allowExtraEmails' color='primary' />}
                 label='I want to receive inspiration, marketing promotions and updates via email.'
               />
-            </Grid>
+            </Grid> */}
           </Grid>
+
           <Button
             className={classes.submit}
             type='submit'
@@ -214,9 +218,10 @@ export default function Register() {
             fullWidth>
             Sign Up Now
           </Button>
-          <Grid container justify='flex-end'>
+
+          <Grid container justify='center'>
             <Grid item>
-              <Link href='/login' variant='body2'>
+              <Link to={'/login'} variant='body2'>
                 Already have an account? Sign in
               </Link>
             </Grid>
