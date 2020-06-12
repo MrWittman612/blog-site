@@ -8,6 +8,7 @@ import Login from './components/login/Login';
 import Register from './components/register/Register';
 import Dashboard from './components/dashboard/Dashboard';
 import Blog from './components/blog/Blog';
+import { PrivateRoute } from './utils/PrivateRoute';
 
 function App() {
   return (
@@ -15,23 +16,23 @@ function App() {
       <div>
         <Switch>
           <Route exact path='/'>
-            <Blog />
-          </Route>
-          <Route path='/login'>
-            <Login />
-          </Route>
-          <Route path='/album'>
             <Album />
+          </Route>
+          <Route path='/news'>
+            <Blog />
           </Route>
           <Route path='/pricing'>
             <Pricing />
           </Route>
+          <Route path='/login'>
+            <Login />
+          </Route>
           <Route path='/register'>
             <Register />
           </Route>
-          <Route path='/dashboard'>
+          <PrivateRoute path='/dashboard'>
             <Dashboard />
-          </Route>
+          </PrivateRoute>
         </Switch>
       </div>
     </Router>
