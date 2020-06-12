@@ -1,17 +1,16 @@
-import React, { useContext } from 'react';
-import clsx from 'clsx';
 import {
-  Drawer,
-  List,
   Divider,
+  Drawer,
   IconButton,
+  List,
   makeStyles,
 } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { mainListItems, secondaryListItems } from './utils/listItems';
-
-import { drawerWidth } from './Dashboard';
+import clsx from 'clsx';
+import React, { useContext } from 'react';
 import { NavBarContext } from '../../context/NavBarProvider';
+import { drawerWidth } from './Dashboard';
+import { mainListItems, secondaryListItems } from './utils/listItems';
 
 const useStyles = makeStyles((theme) => ({
   drawerPaper: {
