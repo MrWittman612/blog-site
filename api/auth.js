@@ -75,9 +75,9 @@ const register = async (req, res) => {
 
     const createUserResponse = User.create(newUser);
 
-    const token = newToken(createUserResponse);
+    const freshToken = newToken(createUserResponse);
 
-    return res.status(200).send({ token });
+    return res.status(200).send({ freshToken });
   } catch (e) {
     return res.status(500).send(invalid);
   }
@@ -87,7 +87,7 @@ exports.register = register;
 
 const protectedRoute = async (req, res, next) => {
   const bearer = req.headers.authorization;
-  if (!bearer || !bearer.startWith('Bearer ')) {
+  if (!bearer || !bearer.startsWith('Bearer ')) {
     return res.status(401).end();
   }
   const token = bearer.split('Bearer ')[1].trim();
