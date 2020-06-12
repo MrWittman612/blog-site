@@ -25,7 +25,19 @@ const login = async (req, res) => {
     return res.status(400).send({ msg: 'Email and password required' });
   }
   try {
-    const user = await User.create(request);
+    const user = await User.findOne({ email: email });
+    console.log('user', user);
+
+    if (!user) {
+      return res.status(404).send({ msg: 'Please Register' });
+    }
+
+    const match = await bcrypt.compare(password, user.password);
+
+    if (!match) {
+      return res.status(401).send(invalid);
+    }
+
     const token = newToken(user);
     return res.status(201).send({ token });
   } catch (error) {
@@ -37,8 +49,8 @@ exports.login = login;
 
 const register = async (req, res) => {
   let request = req.body;
-  const { email, password } = request;
-  console.log(request);
+  const { email, password, name } = request;
+  console.log('request', request);
 
   if (!email || !password) {
     return res.status(400).send({ message: 'Email and password required' });
@@ -48,20 +60,26 @@ const register = async (req, res) => {
 
   try {
     const user = await User.findOne({ email: email }).select('email').exec();
-    console.log(user);
 
     if (user) {
       return res.status(400).send({ message: 'You have a account all ready' });
     }
 
-    const newUser = User.create(request);
+    const hash = await bcrypt.hash(password, 10);
 
-    const token = newToken(newUser);
-    console.log(token);
+    const newUser = {
+      name,
+      email,
+      password: hash,
+    };
+
+    const createUserResponse = User.create(newUser);
+
+    const token = newToken(createUserResponse);
 
     return res.status(200).send({ token });
   } catch (e) {
-    return res.status(500);
+    return res.status(500).send(invalid);
   }
 };
 

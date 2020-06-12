@@ -44,17 +44,18 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  styledHelperText: { color: 'red' },
 }));
 
 export default function Login() {
-  const { paper, avatar, form, submit } = useStyles();
+  const { paper, avatar, form, submit, styledHelperText } = useStyles();
 
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-  const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState([]);
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(false);
 
   console.log(formData);
@@ -80,7 +81,7 @@ export default function Login() {
     event.preventDefault();
 
     try {
-      const response = await axios.get();
+      const response = await axios.post('/api/login', formData);
       console.log(response);
     } catch (error) {
       if (error) {
@@ -136,6 +137,10 @@ export default function Login() {
                   </IconButton>
                 </InputAdornment>
               ),
+            }}
+            helperText={errors && errors.msg}
+            FormHelperTextProps={{
+              classes: { root: styledHelperText },
             }}
             variant='outlined'
             margin='normal'
